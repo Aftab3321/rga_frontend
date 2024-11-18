@@ -442,6 +442,7 @@ div#carouselExampleIndicators {
     background-color: rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: space-between;
+    /* justify-content: center; */
     align-items: center;
     padding: 20px;
     background-image: url("/assets/images/road-trip-background.png");
@@ -3079,6 +3080,7 @@ form#card_info_form input:focus {
         background-color: rgba(255, 255, 255, 0.2);
         display: flex;
         justify-content: space-between;
+        /* justify-content: center; */
         align-items: center;
         padding: 20px;
         background-image: url("/assets/images/road-trip-background.png");

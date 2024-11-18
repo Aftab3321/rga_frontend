@@ -14,7 +14,7 @@ if (!$session->isUserLoggedIn()) {
     if (!empty($current_quiz)) {
         $percentage = floor((floatval($current_quiz[0]['current_question']) / floatval($current_quiz[0]['total_questions']) ) * 100);
     } else {
-        $lastQuiz = find_by_sql("SELECT uq.*, q.* FROM user_quizzes uq RIGHT JOIN quizzes q ON uq.quiz_id = q.ID WHERE uq.user_id = '{$db->escape($user['ID'])}' ORDER BY uq.ID DESC");
+        $lastQuiz = find_by_sql("SELECT uq.*, q.* FROM user_quizzes uq RIGHT JOIN quizzes q ON uq.quiz_id = q.ID WHERE uq.user_id = '{$db->escape($user['ID'])}' ORDER BY `uq`.`completed_at` DESC LIMIT 1");
         if (!empty($lastQuiz)) {
             $percentage = 100;
         } else {
@@ -81,15 +81,15 @@ if (!$session->isUserLoggedIn()) {
                 <div class="hero-section-wrapper">
                     <div class="recent-quiz">
                         <div class="heading">
-                            <p>New Quiz</p>
+                            <p>Last Completed</p>
                             <div class="quiz">
                                 <i class="fa-solid fa-headphones"></i>
                                 <span class="quiz-title"><?php echo (!empty($current_quiz)) ? $current_quiz[0]['title'] : $lastQuiz[0]['title']; ?></span>
                             </div>
                         </div>
-                        <div class="progress-container d-none">
+                        <div class="progress-container">
                             <input type="hidden" id="recentQuizProgressPercentage" value="<?php echo (isset($percentage)) ? $percentage : 0; ?>">
-                            <div class="progress-circle d-none" style="--progress: ;">
+                            <div class="progress-circle" style="--progress: ;">
                                 <span id="percentage"></span>
                             </div>
                         </div>
