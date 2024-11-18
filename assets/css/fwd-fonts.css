@@ -1,0 +1,63 @@
+/* FWDCircularTT-Black */
+@font-face {
+    font-family: 'FWDCircularTT-Black';
+    src: url('../FWDCircular/FWDCircularTT-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* FWDCircularTT-BlackItalic */
+@font-face {
+    font-family: 'FWDCircularTT-BlackItalic';
+    src: url('../FWDCircular/FWDCircularTT-BlackItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* FWDCircularTT-Bold */
+@font-face {
+    font-family: 'FWDCircularTT-Bold';
+    src: url('../FWDCircular/FWDCircularTT-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* FWDCircularTT-BoldItalic */
+@font-face {
+    font-family: 'FWDCircularTT-BoldItalic';
+    src: url('../FWDCircular/FWDCircularTT-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* FWDCircularTT-Book */
+@font-face {
+    font-family: 'FWDCircularTT-Book';
+    src: url('../FWDCircular/FWDCircularTT-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* FWDCircularTT-BookItalic */
+@font-face {
+    font-family: 'FWDCircularTT-BookItalic';
+    src: url('../FWDCircular/FWDCircularTT-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* FWDCircularTT-Medium */
+@font-face {
+    font-family: 'FWDCircularTT-Medium';
+    src: url('../FWDCircular/FWDCircularTT-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* FWDCircularTT-MediumItalic */
+@font-face {
+    font-family: 'FWDCircularTT-MediumItalic';
+    src: url('../FWDCircular/FWDCircularTT-MediumItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}

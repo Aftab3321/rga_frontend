@@ -1,0 +1,47 @@
+RewriteEngine On
+RewriteBase /
+
+
+ # Add your existing rules below this line
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^category/([a-zA-Z0-9_-]+)/?$ category.php?name=$1&subcategoryID=$2 [NC,L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^category/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ category.php?name=category&category_id=$2 [NC,L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^subcategory/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ category.php?name=subcategory&sub_category_id=$2 [NC,L]
+
+
+
+
+# If the request is not for an existing file or directory
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+# Redirect /admin to /admin/dashboard.php
+#RewriteRule ^admin(/.*)?$ /admin/dashboard [NC,R=301,L]
+
+
+
+
+
+ # rewrite rule for product information
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^detail/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ detail.php?name=$1&product_id=$2 [NC,L]
+
+
+
+# ErrorDocument 404 http://localhost/404
+
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</IfModule>
