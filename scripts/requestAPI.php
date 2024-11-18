@@ -266,7 +266,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     }
     elseif ($requestType == "updateProgress") {
         if ($_POST['completeQuiz'] === 'true') {
-            $submitQuizInfo = completeQuiz($_POST['formData'], $_POST['selectedNextQuestion']);
+            $submitQuizInfo = completeQuiz($_POST['formData'], $_POST['selectedAnswer'], $_POST['pointsEarned'], $_POST['selectedNextQuestion']);
             if ($submitQuizInfo) {
                 http_response_code(200);
                 $response_message = ["message" => "completed Successfully", "info" => $submitQuizInfo];
@@ -275,7 +275,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
                 $response_message = ['Message' => "there was an error updating the quiz => ". $submitQuizInfo];
             }
         } else {
-            $submitQuizInfo = updateQuizProgress($_POST['formData'], $_POST['selectedNextQuestion']);
+            $submitQuizInfo = updateQuizProgress($_POST['formData'], $_POST['selectedAnswer'], $_POST['pointsEarned'], $_POST['selectedNextQuestion']);
             if ($submitQuizInfo) {
                 http_response_code(200);
                 $response_message = ["message" => "updated successfully", "info" => $submitQuizInfo];

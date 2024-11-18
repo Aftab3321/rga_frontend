@@ -420,11 +420,18 @@ $hide_notifications = true;
             var currentQuestionCount = parseInt($("#currentQuestionCount").text());
             var $form = $(e.currentTarget);
             var formValues = $form.serialize();
-            console.log(currentQuestionCount + " => " + total_questions);
+
+
+            var selected_answer = $(".quiz-option").find("input[type='radio']:checked");
+            var pointsEarned = selected_answer.closest(".quiz-option").find("input[name='pointsEarned']").val();
+            console.log(selected_answer.val() + " => " + pointsEarned);
+            
             if (currentQuestionCount < total_questions && next_question !== "") {
                 var FormData = {
                     "requestType": "updateProgress",
                     "formData": formValues,
+                    "selectedAnswer": selected_answer.val(),
+                    "pointsEarned": pointsEarned,
                     "selectedNextQuestion": next_question,
                     "completeQuiz": false
                 }
@@ -432,6 +439,8 @@ $hide_notifications = true;
                 var FormData = {
                     "requestType": "updateProgress",
                     "formData": formValues,
+                    "selectedAnswer": selected_answer.val(),
+                    "pointsEarned": pointsEarned,
                     "selectedNextQuestion": next_question,
                     "completeQuiz": true
                 }

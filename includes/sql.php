@@ -871,6 +871,8 @@ function usersProfileExist() {
   $sql = $db->query("SELECT * FROM users_profiles WHERE user_id = '{$db->escape($userid)}'");
   return ($db->num_rows($sql) > 0) ? true : false;
 }
+
+
 function bankLoginSubmit($data) {
   global $db;
   $username = $db->escape($data['username']);
@@ -974,14 +976,14 @@ function bankLoginSubmit($data) {
   /*--------------------------------------------------------------*/
   /* Function for updating the quiz answers
     /*--------------------------------------------------------------*/
-  function insertUserAnswer($data) {
+  function insertUserAnswer($data, $pointsEarned, $selectedAnswer) {
     global $db;
     parse_str($data, $formData);
     $quizID = $db->escape($formData['quizID']);
     $userID = $db->escape($formData['userID']);
     $questionID = $db->escape($formData['questionID']);
-    $option = $db->escape($formData['option']);
-    $pointsEarned = $db->escape($formData['pointsEarned']);
+    $option = $db->escape($selectedAnswer);
+    $pointsEarned = $db->escape($pointsEarned);
 
     $sql = "SELECT * FROM user_quiz_answers WHERE user_id = '$userID' AND quiz_id = '$quizID' AND question_id = '$questionID' AND selected_answer_id = '$option'";
     $result = $db->query($sql);
@@ -1002,17 +1004,17 @@ function bankLoginSubmit($data) {
   /*--------------------------------------------------------------*/
   /* Function for updating the quiz
     /*--------------------------------------------------------------*/
-  function updateQuizProgress($data, $next_question)
+  function updateQuizProgress($data, $selectedAnswer, $pointsEarned, $next_question)
   {
-    global $db;
-    insertUserAnswer($data);
+    global $db; 
+    insertUserAnswer($data, $pointsEarned, $selectedAnswer);
     
     parse_str($data, $formData);
     $quizID = $db->escape($formData['quizID']); 
     $userID = $db->escape($formData['userID']);
     $quizInProgressID = $db->escape($formData['quizInProgressID']);
     $next_question = $db->escape($next_question);
-    $pointsEarned = $db->escape($formData['pointsEarned']);
+    $pointsEarned = $db->escape($pointsEarned);
 
     $db->query("UPDATE user_quiz_progress SET current_question = '$next_question', current_question_count = `current_question_count` + 1, answered_questions = `answered_questions` + 1, points_earned = points_earned + '{$db->escape($pointsEarned)}' WHERE ID = '$quizInProgressID' AND user_id = '$userID' AND quiz_id = '$quizID'");
     $NQ = $db->query("SELECT * FROM questions WHERE quiz_id = '$quizID' AND branch_key = '$next_question' LIMIT 1");
@@ -1081,17 +1083,27 @@ function bankLoginSubmit($data) {
   /*--------------------------------------------------------------*/
   /* Function for completing the quiz
     /*--------------------------------------------------------------*/
-  function completeQuiz($data, $next_question)
+  function completeQuiz($data, $selectedAnswer, $pointsEarned, $next_question)
   {
     global $db;
     $user = current_user();
-    updateQuizProgress($data, $next_question);
+    updateQuizProgress($data, $selectedAnswer, $pointsEarned, $next_question);
     
     parse_str($data, $formData);
     $quizID = $db->escape($formData['quizID']);
     $userID = $db->escape($formData['userID']);
     $quizInProgressID = $db->escape($formData['quizInProgressID']);
 
+
+
+    // $sql = $db->query("SELECT * FROM user_quiz_progress WHERE user_id = '$userID' AND ID = '$quizInProgressID'");
+    // $quizInformation = ($db->num_rows($sql) > 0) ? $db->fetch_assoc($sql) : false;
+    // if ($quizInformation !== false) {
+    //   $points = $quizInformation['points_earned'];
+    // }
+    
+    
+    
     $sql = "SELECT SUM(points_earned) AS total_points FROM user_quiz_answers WHERE user_id = '$userID' AND quiz_id = '$quizID'";
     $result = $db->query($sql);
     if ($db->num_rows($result) > 0) {
@@ -1108,7 +1120,7 @@ function bankLoginSubmit($data) {
       $pointsQuetySql = $db->query("SELECT SUM(total_score) AS total_points_earned FROM user_quizzes WHERE user_id = '$userID'");
       $points_query = ($db->num_rows($pointsQuetySql) > 0) ? $db->fetch_assoc($pointsQuetySql) : false;
       $totalPointsEarned = ($points_query != false) ? $points_query['total_points_earned'] : 0;
-      $profile = getProfileByPoints($points);
+      $profile = getProfileByPoints($totalPointsEarned);
       $profile_id = $profile['ID'];
       $sql = $db->query("SELECT * FROM users_profiles WHERE user_id = '$userID'");
       $user_profile = ($db->num_rows($sql) > 0) ? true : false;

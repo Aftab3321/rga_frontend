@@ -81,7 +81,7 @@ if (!$session->isUserLoggedIn()) {
                 <div class="hero-section-wrapper">
                     <div class="recent-quiz">
                         <div class="heading">
-                            <p>Last Completed</p>
+                            <p><?php echo (!empty($current_quiz)) ? "Last Unfinished" : "Last Completed"; ?></p>
                             <div class="quiz">
                                 <i class="fa-solid fa-headphones"></i>
                                 <span class="quiz-title"><?php echo (!empty($current_quiz)) ? $current_quiz[0]['title'] : $lastQuiz[0]['title']; ?></span>
