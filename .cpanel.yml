@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/p9ltdc5/rga.p9pro.com/
+    - /bin/cp * $DEPLOYPATH
