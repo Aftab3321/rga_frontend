@@ -80,15 +80,15 @@ $hide_notifications = true;
                                             <div class="y_labels_wrapper">
                                                 <div class="top_label label_life">
                                                     <p>Life</p>
-                                                    <!-- <p>$20/ week</p> -->
+                                                    <p></p>
                                                 </div>
                                                 <div class="top_label label_income">
                                                     <p>Income Protection</p>
-                                                    <!-- <p>$10/ week</p> -->
+                                                    <p></p>
                                                 </div>
                                                 <div class="top_label label_illness">
                                                     <p>Critical Illness</p>
-                                                    <!-- <p>$5/ week</p> -->
+                                                    <p></p>
                                                 </div>
                                             </div>
                                         </div>
