@@ -1088,8 +1088,11 @@ details .settings_container ul li a:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 48px;
+    gap: 44px;
     width: 100%;
+}
+.y_labels_wrapper .top_label {
+    min-height: 40px;
 }
 .financial_section .chart_x_lables {
     display: flex;
