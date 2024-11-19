@@ -1088,7 +1088,7 @@ details .settings_container ul li a:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 30px;
+    gap: 48px;
     width: 100%;
 }
 .financial_section .chart_x_lables {
