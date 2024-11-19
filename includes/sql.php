@@ -1108,16 +1108,16 @@ function bankLoginSubmit($data) {
     $result = $db->query($sql);
     if ($db->num_rows($result) > 0) {
       $points = $db->fetch_assoc($result)['total_points'];
-      $sql = $db->query("SELECT * FROM user_quizzes WHERE quiz_id = '$quizID' AND user_id = '$userID'");
-      $quiz_exist = ($db->num_rows($sql) > 0) ? true : false;
-      if ($quiz_exist) {
-        $sql = "UPDATE user_quizzes SET total_score = '$points' WHERE quiz_id = '$quizID' AND user_id = '$userID'";
-      } else {
-        $sql = "INSERT INTO user_quizzes(user_id, quiz_id, total_score) VALUES('$userID','$quizID','$points')";
-
-      }
+      // $sql = $db->query("SELECT * FROM user_quizzes WHERE quiz_id = '$quizID' AND user_id = '$userID'");
+      // $quiz_exist = ($db->num_rows($sql) > 0) ? true : false;
+      // if ($quiz_exist) {
+      //   $sql = "UPDATE user_quizzes SET total_score = '$points' WHERE quiz_id = '$quizID' AND user_id = '$userID'";
+      // } else {
+        
+      // }
+      $sql = "INSERT INTO user_quizzes(user_id, quiz_id, total_score) VALUES('$userID','$quizID','$points')";
       $db->query($sql);
-      $pointsQuetySql = $db->query("SELECT SUM(total_score) AS total_points_earned FROM user_quizzes WHERE user_id = '$userID'");
+      $pointsQuetySql = $db->query("SELECT AVG(total_score) AS total_points_earned FROM user_quizzes WHERE user_id = '$userID'");
       $points_query = ($db->num_rows($pointsQuetySql) > 0) ? $db->fetch_assoc($pointsQuetySql) : false;
       $totalPointsEarned = ($points_query != false) ? $points_query['total_points_earned'] : 0;
       $profile = getProfileByPoints($totalPointsEarned);
