@@ -15,7 +15,7 @@ $packages = [
             "2" => ["18-30" => 11.0, "31-50" => 14.1, "51+" => 58.8, "0" => 0],
         ],
         "contents" => [
-            "Sum Insured" => 300000,
+            "Sum Insured" => "$300000",
             "Payable on" => "Death or diagnosis of terminal illness",
             "Options & Extras" => "None included",
             "Premium Frequency" => "Monthly"
@@ -27,7 +27,7 @@ $packages = [
             "2" => ["18-30" => 27.2, "31-50" => 51.5, "51+" => 181.6, "0" => 0],
         ],
         "contents" => [
-            "Sum Insured" => 100000,
+            "Sum Insured" => "$100000",
             "Payable on" => "Diagnosis of one of the trauma conditions",
             "Options & Extras" => "None included",
             "Premium Frequency" => "Monthly"
@@ -39,7 +39,7 @@ $packages = [
             "2" => ["18-30" => 33.8, "31-50" => 54.8, "51+" => 177.3, "0" => 0],
         ],
         "contents" => [
-            "Monthly Benefit" => 3000,
+            "Monthly Benefit" => "$3000",
             "Replacement Ratio" => "70%",
             "Waiting Period" => "30 Days",
             "Payable on" => "Loss of ability to work due to sickness or accident",
@@ -67,7 +67,7 @@ $packages = [
                             <img src="/assets/Icons/life_primary.svg" alt="">
                         </div>
                         <div class="category_title">
-                            <h2>The Life</h2>
+                            <h2>Life</h2>
                         </div>
                     </div>
                 </a>
@@ -93,7 +93,7 @@ $packages = [
                             <img src="/assets/Icons/income_protection.svg" alt="">
                         </div>
                         <div class="category_title">
-                            <h2>Income Protection</h2>
+                            <h2>Critical Illness</h2>
                         </div>
                     </div>
                 </a>

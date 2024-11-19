@@ -24,7 +24,7 @@ if (isset($_GET['tab'])) {
                             <img src="/assets/Icons/life_primary.svg" alt="">
                         </div>
                         <div class="category_title">
-                            <h2>The Life</h2>
+                            <h2>Life</h2>
                         </div>
                     </div>
                 </a>
@@ -50,7 +50,7 @@ if (isset($_GET['tab'])) {
                             <img src="/assets/Icons/income_protection.svg" alt="">
                         </div>
                         <div class="category_title">
-                            <h2>Income Protection</h2>
+                            <h2>Critical Illness</h2>
                         </div>
                     </div>
                 </a>

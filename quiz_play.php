@@ -71,7 +71,7 @@ $hide_notifications = true;
                                     <div class="charts_top_labels">
                                         <ul>
                                             <li>Life</li>
-                                            <li>Disability Income</li>
+                                            <li>Income Protection</li>
                                             <li>Critical Illness</li>
                                         </ul>
                                     </div>
@@ -80,15 +80,15 @@ $hide_notifications = true;
                                             <div class="y_labels_wrapper">
                                                 <div class="top_label label_life">
                                                     <p>Life</p>
-                                                    <p>$20/ week</p>
+                                                    <!-- <p>$20/ week</p> -->
                                                 </div>
                                                 <div class="top_label label_income">
-                                                    <p>Disability Income</p>
-                                                    <p>$10/ week</p>
+                                                    <p>Income Protection</p>
+                                                    <!-- <p>$10/ week</p> -->
                                                 </div>
                                                 <div class="top_label label_illness">
                                                     <p>Critical Illness</p>
-                                                    <p>$5/ week</p>
+                                                    <!-- <p>$5/ week</p> -->
                                                 </div>
                                             </div>
                                         </div>
