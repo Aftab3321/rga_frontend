@@ -44,7 +44,7 @@ $packages = [
             "Waiting Period" => "30 Days",
             "Payable on" => "Loss of ability to work due to sickness or accident",
             "Benefit Period" => "5 Years",
-            "Premium Frequency" => "Annual"
+            "Premium Frequency" => "Monthly"
         ]
     ]
 ]
@@ -80,7 +80,7 @@ $packages = [
                             <img src="/assets/Icons/trauma_primary.svg" alt="">
                         </div>
                         <div class="category_title">
-                            <h2>Trauma</h2>
+                            <h2>Critical Illness</h2>
                         </div>
                     </div>
                 </a>
@@ -93,7 +93,7 @@ $packages = [
                             <img src="/assets/Icons/income_protection.svg" alt="">
                         </div>
                         <div class="category_title">
-                            <h2>Critical Illness</h2>
+                            <h2>Income Protection</h2>
                         </div>
                     </div>
                 </a>
@@ -173,7 +173,7 @@ $packages = [
                             <div class="insurance_form_contents">
                                 <div class="insurance_title page_main_title">
                                     <h2>
-                                        Trauma
+                                        Critical Illness
                                     </h2>
                                 </div>
                                 <div class="insurance_details">
