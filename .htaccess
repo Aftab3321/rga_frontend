@@ -1,0 +1,84 @@
+RewriteEngine On
+RewriteBase /
+
+
+ # Add your existing rules below this line
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^category/([a-zA-Z0-9_-]+)/?$ category.php?name=$1&subcategoryID=$2 [NC,L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^category/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ category.php?name=category&category_id=$2 [NC,L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^subcategory/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ category.php?name=subcategory&sub_category_id=$2 [NC,L]
+
+
+
+
+# If the request is not for an existing file or directory
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+# Redirect /admin to /admin/dashboard.php
+#RewriteRule ^admin(/.*)?$ /admin/dashboard [NC,R=301,L]
+
+
+
+
+
+ # rewrite rule for product information
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^detail/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ detail.php?name=$1&product_id=$2 [NC,L]
+
+
+
+# ErrorDocument 404 http://localhost/404
+
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</IfModule>
+
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php8_module>
+   php_flag display_errors Off
+   php_value max_execution_time 30
+   php_value max_input_time 60
+   php_value max_input_vars 1000
+   php_value memory_limit 128M
+   php_value post_max_size 8M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php81"
+   php_value upload_max_filesize 2M
+   php_flag zlib.output_compression Off
+</IfModule>
+<IfModule lsapi_module>
+   php_flag display_errors Off
+   php_value max_execution_time 30
+   php_value max_input_time 60
+   php_value max_input_vars 1000
+   php_value memory_limit 128M
+   php_value post_max_size 8M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php81"
+   php_value upload_max_filesize 2M
+   php_flag zlib.output_compression Off
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php81” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php81 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

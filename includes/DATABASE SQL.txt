@@ -1,0 +1,255 @@
+-- Create Roles Table
+CREATE TABLE Roles (
+    ID INT PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL
+);
+
+-- Insert Roles
+INSERT INTO Roles (ID, role_name) VALUES
+(1, 'Admin'),
+(2, 'User');
+
+
+-- Create admins table
+CREATE TABLE `admins` (
+  `ID` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `roles_id` int(11) NOT NULL,
+  FOREIGN KEY (roles_id) REFERENCES Roles(ID)
+);
+
+INSERT INTO `admins` (`Name`, `Email`, `Password`, `roles_id`) VALUES
+('Aftab Ahmed', 'aftabjamali1212@gmail.com', '$2y$10$LK0e7G3wS21jQPdUEPL4XOSe8oT4f9N7KqHJ5ShgHe.jaFeeqOhca', 1),
+('Rebecca ting', 'rebeccating@p9pro.com', '$2y$10$t4wad8ZR4WCQo1U5iccHH.g6JUfjnjf1QtcSDblMfNFprdA5vPDZK', 1);
+
+
+-- Create Users Table
+CREATE TABLE Users (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    age INT(3) not null,
+    gender VARCHAR(25) not null,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone_number VARCHAR(15) not null UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    unique_link VARCHAR(30) NOT NULL,
+    role_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES Roles(ID)
+);
+
+INSERT INTO Users (`username`, `email`, `phone_number`, `password`, `role_id`) VALUES 
+('Aftab Ahmed', 'aftabjamali1212@gmail.com', '+923153718255', '$2y$10$tNkgh5j7br2ya.1QhwcgCeGGsv1kDLV.PY55M0N53aqmVPXUagTlC', 2);
+
+-- Create Wallets Table
+CREATE TABLE Wallets (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    balance DECIMAL(10, 2) DEFAULT 0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE quiz_categories (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    category_name VARCHAR(100) NOT NULL,
+    parent_id INT DEFAULT NULL,  -- This will be NULL for main categories and contain the ID of the parent category for subcategories
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES Quiz_Categories(ID) ON DELETE CASCADE
+);
+
+
+-- Create Quizzes Table
+CREATE TABLE Quizzes (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    category_id INT,
+    created_by INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES Users(ID) ON DELETE SET NULL,
+    FOREIGN KEY (category_id) REFERENCES quiz_categories(ID) ON DELETE SET NULL
+);
+
+-- Insert a main category "Sports"
+INSERT INTO Quiz_Categories (category_name) VALUES ('Sports');
+
+-- Insert subcategories under "Sports"
+INSERT INTO Quiz_Categories (category_name, parent_id) VALUES ('Road Trip', 1);  -- Assuming "Sports" has category_id 1
+INSERT INTO Quiz_Categories (category_name, parent_id) VALUES ('Lottery', 1);
+
+
+-- Create Questions Table
+CREATE TABLE Questions (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    quiz_id INT,
+    question_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (quiz_id) REFERENCES Quizzes(ID) ON DELETE CASCADE
+);
+
+-- Create Answers Table
+CREATE TABLE Answers (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    question_id INT,
+    answer_text TEXT NOT NULL,
+    points INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (question_id) REFERENCES Questions(ID) ON DELETE CASCADE
+);
+
+-- Create User_Quizzes Table
+CREATE TABLE User_Quizzes (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    quiz_id INT,
+    total_score INT DEFAULT 0,
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(ID) ON DELETE CASCADE,
+    FOREIGN KEY (quiz_id) REFERENCES Quizzes(ID) ON DELETE CASCADE
+);
+
+-- Create User_Answers Table
+CREATE TABLE User_Answers (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    question_id INT,
+    answer_id INT,
+    points_earned INT,
+    answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(ID) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES Questions(ID) ON DELETE CASCADE,
+    FOREIGN KEY (answer_id) REFERENCES Answers(ID) ON DELETE CASCADE
+);
+
+-- Create Notifications Table
+CREATE TABLE Notifications (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create User_Notifications Table
+CREATE TABLE User_Notifications (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    notification_id INT,
+    is_read BOOLEAN DEFAULT FALSE,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(ID) ON DELETE CASCADE,
+    FOREIGN KEY (notification_id) REFERENCES Notifications(ID) ON DELETE CASCADE
+);
+
+-- Create Admin Actions Log Table
+CREATE TABLE Admin_Actions_Log (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    admin_id INT,
+    action TEXT NOT NULL,
+    performed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (admin_id) REFERENCES admins(ID) ON DELETE SET NULL
+);
+
+
+
+
+-- Admin Analytics Table queries
+
+
+CREATE TABLE Profiles (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    profile_name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE Customers (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    device_type VARCHAR(50),
+    profile_id INT,
+    FOREIGN KEY (profile_id) REFERENCES Profiles(ID) ON DELETE SET NULL
+);
+
+CREATE TABLE Clicks (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    device_type VARCHAR(50),
+    time_slot VARCHAR(10),
+    screen_name VARCHAR(100),
+    time_spent INT,  -- Time in seconds
+    dropped_off BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (customer_id) REFERENCES Customers(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Traffic_Summary (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    date DATE NOT NULL,
+    total_customers INT DEFAULT 0,
+    new_customers INT DEFAULT 0,
+    total_clicks INT DEFAULT 0,
+    new_clicks INT DEFAULT 0,
+    device_usage JSON,
+    average_time_spent INT DEFAULT 0,
+    drop_off_rate DECIMAL(5,2) DEFAULT 0.00
+);
+
+
+CREATE TABLE Customer_Profiles (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    profile_id INT,
+    assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES Customers(ID) ON DELETE CASCADE,
+    FOREIGN KEY (profile_id) REFERENCES Profiles(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Profile_Summary (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    profile_id INT,
+    date DATE NOT NULL,
+    customer_count INT DEFAULT 0,
+    new_customers INT DEFAULT 0,
+    FOREIGN KEY (profile_id) REFERENCES Profiles(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE Call_To_Action (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    cta_type VARCHAR(100),
+    clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    proceeded_to_purchase BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (customer_id) REFERENCES Customers(ID) ON DELETE CASCADE
+);
+
+CREATE TABLE CTA_Summary (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    cta_type VARCHAR(100),
+    date DATE NOT NULL,
+    click_count INT DEFAULT 0,
+    purchase_count INT DEFAULT 0
+);
+
+CREATE TABLE Rewards_News (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    item_type VARCHAR(100),
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    profiles_assigned JSON  -- Example: [1, 2, 3] for profile_ids
+);
+
+CREATE TABLE Reward_News_Interactions (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    item_id INT,
+    interaction_type VARCHAR(100),
+    interacted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES Customers(ID) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES Rewards_News(ID) ON DELETE CASCADE
+);
+
+
